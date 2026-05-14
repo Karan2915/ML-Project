@@ -12,6 +12,10 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
+
+
 @dataclass
 class DataIngestionConfig:
     train_data_path: str = os.path.join('artifacts', 'train.csv')
@@ -55,10 +59,18 @@ class DataIngestion:
 
 
 if __name__ == "__main__":
+    # Step 1: Data Ingestion
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
+    print("Data ingestion completed.")
 
+    # Step 2: Data Transformation
     data_transformation = DataTransformation()
-    train_arr, test_arr, preprocessor_path = data_transformation.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr, preprocessor_path = data_transformation.initiate_data_transformation(train_data, test_data)  # ✅ Fixed: capture preprocessor_path
     print("Data transformation completed.")
-    print("Preprocessor saved at:", preprocessor_path)
+    print("Preprocessor saved at:", preprocessor_path)  # ✅ Fixed: now preprocessor_path is defined
+
+    # Step 3: Model Training
+    model_trainer = ModelTrainer()
+    r2_score = model_trainer.initiate_model_trainer(train_arr, test_arr)
+    print(f"Model training completed. Best model R2 Score: {r2_score}")  # ✅ Fixed: store and print with label
