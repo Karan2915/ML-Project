@@ -73,4 +73,4 @@ if __name__ == "__main__":
     # Step 3: Model Training
     model_trainer = ModelTrainer()
     r2_score = model_trainer.initiate_model_trainer(train_arr, test_arr)
-    print(f"Model training completed. Best model R2 Score: {r2_score}")  # ✅ Fixed: store and print with label
+    print(f"Model training completed. Best model R2 Score: {r2_score}")  # ✅ Fixed: store and print with label  
